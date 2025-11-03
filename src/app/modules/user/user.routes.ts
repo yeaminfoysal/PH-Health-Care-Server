@@ -16,20 +16,22 @@ router.get(
 router.post(
     "/create-patient",
     fileUploader.upload.single('file'),
-    (req: Request, res: Response, next: NextFunction) => {
-        req.body = UserValidation.createPatientValidationSchema.parse(JSON.parse(req.body.data))
-        return userController.createPatient(req, res, next)
-    }
+    userController.createPatient
+    // (req: Request, res: Response, next: NextFunction) => {
+    //     req.body = UserValidation.createPatientValidationSchema.parse(JSON.parse(req.body.data))
+    //     return userController.createPatient(req, res, next)
+    //}
 )
 
 router.post(
     "/create-admin",
     auth(UserRole.ADMIN),
     fileUploader.upload.single('file'),
-    (req: Request, res: Response, next: NextFunction) => {
-        req.body = UserValidation.createAdminValidationSchema.parse(JSON.parse(req.body.data))
-        return userController.createAdmin(req, res, next)
-    }
+    userController.createAdmin
+    // (req: Request, res: Response, next: NextFunction) => {
+    //     req.body = UserValidation.createAdminValidationSchema.parse(JSON.parse(req.body.data))
+    //     return userController.createAdmin(req, res, next)
+    // }
 );
 
 router.post(
