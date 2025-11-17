@@ -6,7 +6,6 @@ import { jwtHelper } from "../../helper/jwtHelper";
 import ApiError from "../../errors/ApiError";
 import httpStatus from "http-status"
 import config from "../../../config";
-import { emit } from "process";
 import emailSender from "./emailSender";
 
 const login = async (payload: { email: string, password: string }) => {
