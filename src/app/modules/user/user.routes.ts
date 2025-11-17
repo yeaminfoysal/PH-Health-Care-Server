@@ -13,6 +13,12 @@ router.get(
     userController.getAllFromDB
 )
 
+router.get(
+    '/me',
+    auth(UserRole.ADMIN, UserRole.DOCTOR, UserRole.PATIENT),
+    userController.getMyProfile
+)
+
 router.post(
     "/create-patient",
     fileUploader.upload.single('file'),
@@ -26,7 +32,7 @@ router.post(
 router.post(
     "/create-admin",
     auth(UserRole.ADMIN),
-    fileUploader.upload.single('file'),
+    // fileUploader.upload.single('file'),
     userController.createAdmin
     // (req: Request, res: Response, next: NextFunction) => {
     //     req.body = UserValidation.createAdminValidationSchema.parse(JSON.parse(req.body.data))
@@ -44,6 +50,13 @@ router.post(
     //     req.body = UserValidation.createDoctorValidationSchema.parse(JSON.parse(req.body.data))
     //     return userController.createDoctor(req, res, next)
     // }
+);
+
+
+router.patch(
+    '/:id/status',
+    auth(UserRole.ADMIN),
+    userController.changeProfileStatus
 );
 
 export const userRoutes = router;
