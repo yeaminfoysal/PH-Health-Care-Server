@@ -2,6 +2,7 @@ node_modules
 dist
 .env
 .env.test
+uploads
 
 /src/generated/prisma
 /prisma/schema/migrations

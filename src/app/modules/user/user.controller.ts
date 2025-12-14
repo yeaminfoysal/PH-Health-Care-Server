@@ -8,8 +8,10 @@ import { IJWTPayload } from "../../types/common";
 import httpStatus from "http-status";
 
 const createPatient = catchAsync(async (req: Request, res: Response) => {
-    const result = await UserService.createPatient(req);
-    // console.log(req.body)
+    try {
+        // console.log("first")
+        // console.log("req: ",req.body.data)
+        const result = await UserService.createPatient(req);
 
     sendResponse(res, {
         statusCode: 201,
@@ -17,6 +19,10 @@ const createPatient = catchAsync(async (req: Request, res: Response) => {
         message: "Patient created successfully!",
         data: result
     })
+    } catch (error: any) {
+        console.error("⚠️ User create failed:", error.message);
+        return res.status(400).send(`User create failed: ${error.message}`);
+    }
 })
 
 const createAdmin = catchAsync(async (req: Request, res: Response) => {

@@ -22,16 +22,16 @@ router.get(
 router.post(
     "/create-patient",
     fileUploader.upload.single('file'),
-    userController.createPatient
-    // (req: Request, res: Response, next: NextFunction) => {
-    //     req.body = UserValidation.createPatientValidationSchema.parse(JSON.parse(req.body.data))
-    //     return userController.createPatient(req, res, next)
-    //}
+    // userController.createPatient
+    (req: Request, res: Response, next: NextFunction) => {
+        req.body = UserValidation.createPatientValidationSchema.parse(JSON.parse(req.body.data))
+        return userController.createPatient(req, res, next)
+    }
 )
 
 router.post(
     "/create-admin",
-    auth(UserRole.ADMIN),
+    // auth(UserRole.ADMIN),
     // fileUploader.upload.single('file'),
     userController.createAdmin
     // (req: Request, res: Response, next: NextFunction) => {
@@ -42,14 +42,14 @@ router.post(
 
 router.post(
     "/create-doctor",
-    auth(UserRole.ADMIN),
-    userController.createDoctor
+    // auth(UserRole.ADMIN),
+    // userController.createDoctor
     // fileUploader.upload.single('file'),
-    // (req: Request, res: Response, next: NextFunction) => {
-    //     console.log(JSON.parse(req.body.data))
-    //     req.body = UserValidation.createDoctorValidationSchema.parse(JSON.parse(req.body.data))
-    //     return userController.createDoctor(req, res, next)
-    // }
+    (req: Request, res: Response, next: NextFunction) => {
+        console.log(JSON.parse(req.body))
+        req.body = UserValidation.createDoctorValidationSchema.parse(JSON.parse(req.body.data))
+        return userController.createDoctor(req, res, next)
+    }
 );
 
 
